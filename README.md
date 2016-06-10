@@ -97,5 +97,22 @@ to change background of the tablayout
           android:background="@drawable/stripetab"    <-- create stripe background like example image
           app:tabTextAppearance="@style/CustomTabStyle"/>
 ```
+<br>
+<b>NOTES</b><br>
+if you want to use scrollable mode ...etc, You need to set the tabs size (i dont know why). If not, it will looks ugly
+```java
+       int width = 120; // width - width of tabs 
+       int tabsize = 120 * tabcount; // tabcount - number of tabs
+       ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+       if (sizeScreen() < tabsize) 
+           vgTab.getLayoutParams().width = dpToPx(120);
+       
+       public int dpToPx(int dp) {
+          DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+          int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+          return px;
+       }
+```
+
 
 
