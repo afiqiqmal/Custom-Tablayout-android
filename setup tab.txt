@@ -1,0 +1,86 @@
+private void setupTabLayout(final TabLayout tabs) {
+        tabs.setTabTextColors(ContextCompat.getColor(this, R.color.md_grey_500), ContextCompat.getColor(this, R.color.white));
+        tabs.setSelectedTabIndicatorColor(getResources().getColor(android.R.color.transparent));
+
+        if (sizeScreen()<tabsize){
+            tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+            tabs.setTabGravity(TabLayout.GRAVITY_FILL);
+        }
+        else{
+            tabs.setTabMode(TabLayout.MODE_FIXED);
+            tabs.setTabGravity(TabLayout.GRAVITY_FILL);
+        }
+
+        // CHANGE TAB TEXT FONT
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/knockout-htf49-liteweight.ttf");
+        ViewGroup vg = (ViewGroup) tabs.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+
+            if (j==0){
+                View view = vg.getChildAt(j);
+                view.setBackgroundResource(R.drawable.backgroundtabs);
+            }
+
+            if (sizeScreen()<tabsize) vgTab.getLayoutParams().width = dpToPx(120);
+            int tabChildsCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    ((TextView) tabViewChild).setTypeface(tf);
+                    ((TextView) tabViewChild).setTextSize(18);
+                    if (j==0){
+                        tabViewChild.setPadding(0, 0, 0, 0);
+                    }
+                    else {
+                        tabViewChild.setPadding(0, 20, 0, 0);
+                    }
+                }
+            }
+        }
+
+        tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            ViewGroup vg = (ViewGroup) tabs.getChildAt(0);
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                ViewGroup vgTab = (ViewGroup) vg.getChildAt(tab.getPosition());
+                if (tab.getPosition()==0)
+                    vg.getChildAt(tab.getPosition()).setBackgroundResource(R.drawable.backgroundtabs);
+
+                else if (tab.getPosition()==tabcount-1)
+                    vg.getChildAt(tab.getPosition()).setBackgroundResource(R.drawable.backgroundtabs_last);
+
+                else
+                    vg.getChildAt(tab.getPosition()).setBackgroundResource(R.drawable.backgroundtabs_middle);
+
+                int tabChildsCount = vgTab.getChildCount();
+                for (int i = 0; i < tabChildsCount; i++) {
+                    View tabViewChild = vgTab.getChildAt(i);
+                    if (tabViewChild instanceof TextView) {
+                        tabViewChild.setPadding(0, 0, 0, 0);
+                    }
+                }
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                ViewGroup vgTab = (ViewGroup) vg.getChildAt(tab.getPosition());
+                vg.getChildAt(tab.getPosition()).setBackgroundResource(0);
+                int tabChildsCount = vgTab.getChildCount();
+                for (int i = 0; i < tabChildsCount; i++) {
+                    View tabViewChild = vgTab.getChildAt(i);
+                    if (tabViewChild instanceof TextView) {
+                        tabViewChild.setPadding(0, 20, 0, 0);
+                    }
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
