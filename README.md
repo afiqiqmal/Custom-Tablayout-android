@@ -108,9 +108,12 @@ if you want to use scrollable mode ...etc, You need to set the tabs size (i dont
            vgTab.getLayoutParams().width = dpToPx(120);
        
        public int dpToPx(int dp) {
-          DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-          int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-          return px;
+           DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+           return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+       }
+
+       public int sizeScreen(){
+           return (int)((Resources.getSystem().getDisplayMetrics().widthPixels)/ Resources.getSystem().getDisplayMetrics().density);
        }
 ```
 
