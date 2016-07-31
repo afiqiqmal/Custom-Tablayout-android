@@ -159,6 +159,7 @@ This is example of what im doing
                     ((TextView) tabViewChild).setTextSize(18);
                     ((TextView) tabViewChild).setAllCaps(true);
                     ((TextView) tabViewChild).setSingleLine(true);
+                    //set the text to marquee if text longer than tabs size
                     ((TextView) tabViewChild).setEllipsize(TextUtils.TruncateAt.MARQUEE);
                     ((TextView) tabViewChild).setMarqueeRepeatLimit(100);
                     if (j==0){
