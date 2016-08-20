@@ -7,6 +7,11 @@
 <br>
 <br>
 <b>Simple tablayout hack to custom text, background and etc..</b> <br>
+
+Above images is where is tried to custom the tablayout to become the shape like that :D The designer design the UI like that and i have to came out a solution to custom it..<br>
+Note: I create it by my own. If you have better solution, you can suggest me :D TQ..
+<br>
+<br>
 Below is the base init to custom tab layout
 ```java
         Tablayout tabs = (TabLayout)findViewById(R.id.tabs);
@@ -88,6 +93,24 @@ To change background of the tabs
         }
 ```
 
+Add listener if you want to track the tab changes
+``` java
+tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // code what happen when tab is selected  
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // code what happen when tab is unselected
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // code what happen when the tab is reselected
+            }
+        });
+```
+
 to change background of the tablayout
 ```xml
         <android.support.design.widget.TabLayout
@@ -100,6 +123,9 @@ to change background of the tablayout
 <br>
 <b>NOTES</b><br>
 if you want to use scrollable mode ...etc, You need to set the tabs size (i dont know why). If not, it will looks ugly
+
+My case: i hardcode the width to 120dp (you can change it or just calculate by your own for your perfect size)
+
 ```java
        int width = 120; // width - width of tabs 
        int tabsize = 120 * tabcount; // tabcount - number of tabs
@@ -171,7 +197,8 @@ This is example of what im doing
                 }
             }
         }
-
+        
+        // add listener when tab is change
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             ViewGroup vg = (ViewGroup) tabs.getChildAt(0);
 
